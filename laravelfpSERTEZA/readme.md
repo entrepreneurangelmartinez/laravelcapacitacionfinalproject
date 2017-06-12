@@ -42,13 +42,13 @@ Ahora creamos nuestra área de administrador:
 - **Crear nueva carpeta admin**
   - **index.blade.php**
 - **Crear nueva carpeta posts**
- - **create.blade.php**
- - **edit.blade.php**
- - **index.blade.php**
+  - **create.blade.php**
+  - **edit.blade.php**
+  - **index.blade.php**
 - **Crear  nueva carpeta users**
- - **create.blade.php**
- - **edit.blade.php**
- - **index.blade.php**
+  - **create.blade.php**
+  - **edit.blade.php**
+  - **index.blade.php**
 - **Crear nueva carpeta categories**
   - **create.blade.php**
   - **index.blade.php**
