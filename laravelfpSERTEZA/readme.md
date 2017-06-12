@@ -54,7 +54,23 @@ Ahora creamos nuestra área de administrador:
   - **index.blade.php**
   - **edit.blade.php**
 
+  ##Migración de la tabla **users**
 
+**php atisan make:migration add_role_id_to_users_table --table=users**
 
+**Up**
 
+**Schema::table('users', function (Blueprint $table) {
+            //
+            $table->integer("role_id")->index()->unsigned()->nullable();
+            $table->integer('is_active')->default(0);
+        });**
+
+**Down**
+
+**Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('role_id');
+            $table->dropColumn('is_active');
+        });**
 
