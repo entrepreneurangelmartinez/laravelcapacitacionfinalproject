@@ -97,3 +97,24 @@ Se configura la relación en el model de User
     }**
 
 Se verifica su funcionamiento en /home registrando un nuevo usuario
+
+## Probando relacion con Tinker
+
+Activamos la interfaz de tinker con el siguiente comando:
+
+**php artisan tinker**
+
+Generamos un nuevo objeto
+
+**$user=App\User::find(1)**
+
+Podemos acceder ahora a la relación con Role
+
+**$user->role**
+
+Nos debe generar como salida la relación
+
+**App\User::create(['name'=>'Consultant','email'=>'amartinezb@advanced-consulting.biz','passwor
+d'=>'Progangelo1'])**
+
+Cerramos Tinker
