@@ -78,7 +78,11 @@ Se procede a generar la migracion de la tabla de roles y su modelo
 
 **php artisan make:model Role -m**
 
-Modificamos la migración de roles
+**Up**
 
-**php artisan make:model Role -m**
+** Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });**
 
