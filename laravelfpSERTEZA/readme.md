@@ -128,3 +128,82 @@ Generamos la ruta prefabricada de Laravel
 Generamos el controlador para nuestra nueva ruta con artisan
 
 **php artisan make:controller --resource AdminUsersController**
+
+## Instalación de NodeJs
+
+Descargamos el binario para la arquitectura que nos corresponde y se instala como cualquier binario de windows
+
+Se procede a verificar si se instalo correctamente  con el siguiente comando:
+
+**node -v**
+
+## Intalación de gulp y assets
+
+Se ejecuta el siguiente comando:
+
+**npm install --global gulp**
+**npm install --save-dev gulp**
+
+
+
+**npm install**
+
+**npm install -g gulp**
+
+**npm install laravel-elixir --save-dev**
+
+**npm install laravel-elixir-vue-2 --save-dev**
+
+**npm install --save laravel-elixir-webpack-official**
+
+Si existe algún problema seguimos con la guía oficial de Gulp 
+
+Se procede a crear un archivo gulpfile.js
+
+Si se crea un contenido por defecto se comenta y se pone el siguiente:
+
+**var elixir=require('laravel-elixir');
+
+elixir(function(mix){
+  mix.sass('app.scss')
+});**
+
+Se procede a descargar los assets correspondientes
+
+- [Assets](https://1drv.ms/u/s!AgKVrL2TyVOSmxVJ0D6np9QqdRp1).
+
+Dentro traen 3 carpetas:
+
+Se colocan en la carpeta resources/assets
+
+-  **css**   
+-  **fonts**
+
+Se coloca dentro de la carpeta public
+
+-  **js**
+
+Generamos dos métodos dentro de nuestro archivo gulpfile.js
+
+<code>.styles([
+        'libs/blog-post.css',
+        'libs/bootstrap.css',
+        'libs/font-awesome.css',
+        'libs/metisMenu.css',
+        'libs/sb-admin-2.css'
+    ], './public/css/libs.css')
+
+    .scripts([
+        'libs/jquery.js',
+        'libs/bootstrap.js',
+        'libs/metisMenu.js',
+        'libs/scripts.js',
+        'libs/sb-admin-2.js'
+    ], './public/js/libs.js')</code>
+
+Ejecutamos gulp para revisar que todo este correcto
+
+**gulp**
+
+
+
