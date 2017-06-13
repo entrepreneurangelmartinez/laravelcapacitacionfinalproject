@@ -86,3 +86,14 @@ Se procede a generar la migracion de la tabla de roles y su modelo
             $table->timestamps();
         });**
 
+## Configuración de relación y entrada de datos
+
+Se configura la relación en el model de User
+
+**Up**
+
+**public function role(){
+        return $this->belongsTo('App\Role');
+    }**
+
+Se verifica su funcionamiento en /home registrando un nuevo usuario
