@@ -54,7 +54,7 @@ Ahora creamos nuestra área de administrador:
   - **index.blade.php**
   - **edit.blade.php**
 
-  ##Migración de la tabla **users**
+## Migración de la tabla **users**
 
 **php atisan make:migration add_role_id_to_users_table --table=users**
 
@@ -73,4 +73,12 @@ Ahora creamos nuestra área de administrador:
             $table->dropColumn('role_id');
             $table->dropColumn('is_active');
         });**
+
+Se procede a generar la migracion de la tabla de roles y su modelo
+
+**php artisan make:model Role -m**
+
+Modificamos la migración de roles
+
+**php artisan make:model Role -m**
 
