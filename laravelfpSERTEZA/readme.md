@@ -118,3 +118,13 @@ Nos debe generar como salida la relación
 d'=>'Progangelo1'])**
 
 Cerramos Tinker
+
+## Controlador administrativo y rutas
+
+Generamos la ruta prefabricada de Laravel
+
+**Route::resource('admin/users', 'UserController');**
+
+Generamos el controlador para nuestra nueva ruta con artisan
+
+**php artisan make:controller --resource AdminUsersController**
