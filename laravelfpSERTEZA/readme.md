@@ -80,7 +80,7 @@ Se procede a generar la migracion de la tabla de roles y su modelo
 
 **Up**
 
-** Schema::create('roles', function (Blueprint $table) {
+**Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
