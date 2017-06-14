@@ -362,8 +362,8 @@ Procedemos a generar un formulario base para crear usuarios
 
 
       <div class="form-group">
-             {!! Form::label('title', 'Title:') !!}
-             {!! Form::text('title', null, ['class'=>'form-control'])!!}
+             {!! Form::label('name', 'Name:') !!}
+             {!! Form::text('name', null, ['class'=>'form-control'])!!}
        </div>
 
          <div class="form-group">
@@ -379,5 +379,97 @@ Procedemos a generar un formulario base para crear usuarios
 
  @stop
 ```
+
+## Creando campos y probando el formulario
+
+En el controlador permitimos obtener todo el request y presentarlo
+
+```php
+public function store(Request $request)
+    {
+        //
+        return $request->all();
+    }
+```
+
+Acción create
+```php
+ public function create()
+    {
+        //Obtenemos todos los roles y enviamos en un viewbag
+        $roles = Role::pluck('name','id')->all();
+        // $roles = array_pluck(, 'developer.name', 'developer.id');
+        return view('admin.users.create',compact('roles'));
+    }
+```
+
+Vista admin/users/create.blade.php
+
+```php
+@extends('layouts.admin')
+
+
+
+
+@section('content')
+
+
+    <h1>Create Users</h1>
+
+
+     {!! Form::open(['method'=>'POST', 'action'=> 'AdminUsersController@store','files'=>true]) !!}
+
+
+      <div class="form-group">
+             {!! Form::label('name', 'Name:') !!}
+             {!! Form::text('name', null, ['class'=>'form-control'])!!}
+       </div>
+
+         <div class="form-group">
+        {!! Form::label('email', 'Email:') !!}
+        {!! Form::email('email', null, ['class'=>'form-control'])!!}
+       </div>
+
+        <div class="form-group">
+            {!! Form::label('role_id', 'Role:') !!}
+            {!! Form::select('role_id', [''=>'Choose Options'] + $roles , null, ['class'=>'form-control'])!!}
+        </div>
+
+
+        <div class="form-group">
+            {!! Form::label('is_active', 'Status:') !!}
+            {!! Form::select('is_active', array(1 => 'Active', 0=> 'Not Active'), 0 , ['class'=>'form-control'])!!}
+         </div>
+
+
+        <div class="form-group">
+            {!! Form::label('photo_id', 'Photo:') !!}
+            {!! Form::file('photo_id', null, ['class'=>'form-control'])!!}
+         </div>
+
+
+
+        <div class="form-group">
+            {!! Form::label('password', 'Password:') !!}
+            {!! Form::password('password', ['class'=>'form-control'])!!}
+         </div>
+
+
+         <div class="form-group">
+            {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+         </div>
+
+
+       {!! Form::close() !!}
+
+
+
+ @stop
+```
+
+
+
+
+
 
 
