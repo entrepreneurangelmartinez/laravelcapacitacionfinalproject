@@ -177,11 +177,11 @@ Dentro traen 3 carpetas:
 Se colocan en la carpeta resources/assets
 
 -  **css**   
--  **fonts**
+-  **js**
 
 Se coloca dentro de la carpeta public
 
--  **js**
+-  **fonts**
 
 Generamos dos métodos dentro de nuestro archivo gulpfile.js
 
@@ -205,5 +205,19 @@ Ejecutamos gulp para revisar que todo este correcto
 
 **gulp**
 
+## Creando el master page del area Administrable
+
+Descargamos la plantilla base y la colocamos en el index del area admin
 
 
+- [Layout Administrador](https://1drv.ms/u/s!AgKVrL2TyVOSmxfvjFkNru8zZD0h)
+
+
+Generamos una nueva ruta
+
+```php
+Route::get('/admin', function($id) {
+    //
+    return view('admin.index');
+})->name('admins');
+```
