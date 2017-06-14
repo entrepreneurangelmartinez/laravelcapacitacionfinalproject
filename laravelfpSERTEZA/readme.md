@@ -311,3 +311,73 @@ modificamos la vista
 
 @endsection()
 ```
+
+## Creando usuarios e integrando el motor de vistas
+
+modificamos el controlador de User en la acción create
+
+```php
+public function create()
+    {
+        //
+        return view('admin.users.create');
+    }
+```
+
+modificamos la vista admin.users.create
+```php
+@extends('layouts.admin')
+
+@section('content')
+<h1>Create users</h1>
+@endsection()
+```
+
+descargamos con composer el empaquetado colectivo de html
+
+```php
+composer require laravelcollective/html
+```
+
+Realizamos la configuración correspondiente en congfig/app.php
+
+en los providers se añade el collective
+
+```php
+Collective\Html\HtmlServiceProvider::class
+```
+
+Procedemos a generar un formulario base para crear usuarios
+
+```php
+@extends('layouts.admin')
+
+@section('content')
+
+
+    <h1>Create Users</h1>
+
+
+     {!! Form::open(['method'=>'POST', 'action'=> 'AdminUsersController@store']) !!}
+
+
+      <div class="form-group">
+             {!! Form::label('title', 'Title:') !!}
+             {!! Form::text('title', null, ['class'=>'form-control'])!!}
+       </div>
+
+         <div class="form-group">
+            {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+         </div>
+
+       {!! Form::close() !!}
+
+
+    {{-- @include('includes.form_error') --}}
+
+
+
+ @stop
+```
+
+
