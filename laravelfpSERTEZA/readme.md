@@ -234,3 +234,35 @@ Se modifica el archivo /resources/assets/sass/app.scss
 
 Se ejecuta **gulp** para actualizar app.css
 
+## Listando usuarios
+
+modificamos el controlador de User
+
+```php
+use App\User;
+ public function index()
+    {
+        //
+        // Obtenemos a los usuarios
+         $users = User::all();
+        return view('admin.users.index',compact('users'));
+    }
+```
+
+modificamos la vista
+```php
+ @if($users)
+    @foreach($users as $user)
+     <tr>
+        <td>{{$user->id}}</td>
+        <td>{{$user->name}}</td>
+        <td>{{$user->email}}</td>
+        {{-- <td>{{$user->created_at}}</td>
+        <td>{{$user->updated_at}}</td> --}}
+        {{-- Con formato para humanos --}}
+        <td>{{$user->created_at->diffForHumans()}}</td>
+        <td>{{$user->updated_at->diffForHumans()}}</td>
+      </tr>
+    @endforeach
+    @endif
+```
