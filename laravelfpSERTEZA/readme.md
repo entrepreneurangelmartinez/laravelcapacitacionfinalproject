@@ -221,3 +221,16 @@ Route::get('/admin', function($id) {
     return view('admin.index');
 })->name('admins');
 ```
+
+## Modificando masterpage administrable para corregir el body
+
+Se modifica el archivo /resources/assets/sass/app.scss
+
+```css
+#admin-page{
+    padding-top:0px;
+}
+```
+
+Se ejecuta **gulp** para actualizar app.css
+
