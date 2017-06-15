@@ -644,6 +644,6 @@ Mala idea:
 Buena idea
 
 ```blade
-<a href="{{route('admin.users')}}">All Users</a>
+<a href="{{route('users.index')}}">All Users</a>
 ```
 
