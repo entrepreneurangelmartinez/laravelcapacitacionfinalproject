@@ -625,3 +625,25 @@ public function photo(){
         return $this->belongsTo('App\Photo');
     }
 ```
+
+## Creando hipervinculos dinamicos (Hard code)
+
+En nuestro template layouts/admin.blade.php tenemos enlaces hard codeados, por los que si existe un cambio, se modifica la ruta.
+
+Para solucionar este problema lo pasamos como una variable con un el identificador correspondiente
+(http://cinescopia.com/wp-content/uploads/2011/03/CAK3TA39CA869IOXCAAJTGK2CAGQYJOYCAMGVEORCA05QVRCCAOO0Z5MCAHM679YCA21VWCOCAKPA1NMCATCX897CAMI2PXACAITFZYVCADI605WCACI75QJCAL8A0BTCASYMZ57CA6759WF.jpg)
+
+Mala idea:
+
+```php
+<a href="/users">All Users</a>
+```
+
+(http://cinescopia.com/wp-content/uploads/2011/03/images.jpg)
+
+Buena idea
+
+```blade
+<a href="{{route('admin.users')}}">All Users</a>
+```
+
