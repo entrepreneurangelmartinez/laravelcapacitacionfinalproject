@@ -55,8 +55,7 @@
        {!! Form::close() !!}
 
 
-    {{-- @include('includes.form_error') --}}
-
-
+    @include('includes.form_error')
+  
 
  @stop

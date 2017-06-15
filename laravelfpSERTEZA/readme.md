@@ -185,7 +185,9 @@ Se coloca dentro de la carpeta public
 
 Generamos dos métodos dentro de nuestro archivo gulpfile.js
 
-<code>.styles([
+
+```javascript
+.styles([
         'libs/blog-post.css',
         'libs/bootstrap.css',
         'libs/font-awesome.css',
@@ -199,7 +201,9 @@ Generamos dos métodos dentro de nuestro archivo gulpfile.js
         'libs/metisMenu.js',
         'libs/scripts.js',
         'libs/sb-admin-2.js'
-    ], './public/js/libs.js')</code>
+    ], './public/js/libs.js')
+
+```
 
 Ejecutamos gulp para revisar que todo este correcto
 
@@ -512,3 +516,46 @@ public function store(UsersRequest $request)
 
 Se genera un nuevo usuario y observamos como recarga la página y no recupera los datos. Esto se debe a que activamos la validación.
 
+## Mostrando errores e incluyendolo con blade
+
+Verificamos que exista errores en el request, si los hay lo despliega como una alerta.
+
+```php
+  @if(count($errors)>0)
+    <div class="alert alert-danger">
+    <ul>
+    @foreach($errors->all() as $error)
+    <li>
+    {{$error}}
+    </li>
+    @endforeach
+    </ul>
+    </div>
+    @endif
+```
+
+Para mejorar el performance se genera un nuevo archivo como vista parcial de errores
+
+includes/form_error.blade.php
+
+dentro de la vista...
+
+```php
+ @include('includes.form_error')
+```
+
+dentro del form_error
+
+```php
+  @if(count($errors)>0)
+    <div class="alert alert-danger">
+    <ul>
+    @foreach($errors->all() as $error)
+    <li>
+    {{$error}}
+    </li>
+    @endforeach
+    </ul>
+    </div>
+    @endif
+```
