@@ -467,9 +467,48 @@ Vista admin/users/create.blade.php
  @stop
 ```
 
+## Campo de validacion y generar un request customizable
 
+Generamos un request para mediante artisan
 
+```php
+php artisan make:request UsersCreateRequest
+```
 
+modificamos el valor de retorno de authorize a true
 
+```php
+ public function authorize()
+    {
+        return true;
+    }
+```
 
+ponemos las reglas, para que todos los campos sean requeridos
+
+```php
+public function rules()
+    {
+        return [
+            //
+            'name'=>'required',
+            'email'=>'required',
+            'role_id'=>'required',
+            'is_active'=>'required',
+            'password'=>'required'
+        ];
+    }
+```
+
+en el controlador AdminUsersController.php cambiamos el request por default al nuestro
+
+```php
+public function store(UsersRequest $request)
+    {
+        //
+        return $request->all();
+    }
+```
+
+Se genera un nuevo usuario y observamos como recarga la página y no recupera los datos. Esto se debe a que activamos la validación.
 
