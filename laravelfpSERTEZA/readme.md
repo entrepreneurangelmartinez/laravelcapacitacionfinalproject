@@ -559,3 +559,69 @@ dentro del form_error
     </div>
     @endif
 ```
+
+## Agregando la característica de subir archivos al formulario
+
+Hacemos una migración para permitir que los usuarios puedan almacenar archivos
+
+```php
+php artisan make:migration add_photo_id_to_users --table=users
+
+ public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->string('photo_id');
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('photo_id');
+        });
+    }
+
+    php artisan migrate
+```
+Intentamos crear un nuevo usuario y observamos como ahora nos representa el archivo como una matriz
+
+Dentro del modelo de Users agregamos en la matriz de fillable a is_active y role_id
+
+Generamos el modelo y la migración para almacenar las Fotos
+
+```php
+php artisan make:model Photo -m
+```
+
+Agregamos el campo de la ruta del archivo
+
+```php
+public function up()
+    {
+        Schema::create('photos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('file');
+            $table->timestamps();
+        });
+    }
+
+    php artisan migrate
+```
+
+Se procede a modificar el campo rellenable para file en el modelo Photo
+
+```php
+protected $fillable=['file'];
+```
+
+Generamos la relación entre el usuario y la foto
+
+Modificamos el modelo User
+
+```php
+public function photo(){
+        return $this->belongsTo('App\Photo');
+    }
+```
