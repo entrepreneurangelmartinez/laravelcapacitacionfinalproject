@@ -631,7 +631,7 @@ public function photo(){
 En nuestro template layouts/admin.blade.php tenemos enlaces hard codeados, por los que si existe un cambio, se modifica la ruta.
 
 Para solucionar este problema lo pasamos como una variable con un el identificador correspondiente
-(http://cinescopia.com/wp-content/uploads/2011/03/CAK3TA39CA869IOXCAAJTGK2CAGQYJOYCAMGVEORCA05QVRCCAOO0Z5MCAHM679YCA21VWCOCAKPA1NMCATCX897CAMI2PXACAITFZYVCADI605WCACI75QJCAL8A0BTCASYMZ57CA6759WF.jpg)
+![bad idea](http://cinescopia.com/wp-content/uploads/2011/03/CAK3TA39CA869IOXCAAJTGK2CAGQYJOYCAMGVEORCA05QVRCCAOO0Z5MCAHM679YCA21VWCOCAKPA1NMCATCX897CAMI2PXACAITFZYVCADI605WCACI75QJCAL8A0BTCASYMZ57CA6759WF.jpg)
 
 Mala idea:
 
@@ -639,7 +639,7 @@ Mala idea:
 <a href="/users">All Users</a>
 ```
 
-(http://cinescopia.com/wp-content/uploads/2011/03/images.jpg)
+![good idea](http://cinescopia.com/wp-content/uploads/2011/03/images.jpg)
 
 Buena idea
 
@@ -647,3 +647,53 @@ Buena idea
 <a href="{{route('users.index')}}">All Users</a>
 ```
 
+## Persistencia de datos al guardar la foto del usuario
+
+Modificamos el controlador de Users
+
+```php
+public function store(UsersRequest $request)
+    {
+        //
+
+        // return $request->all();
+        //Persistiendo los datos para crearlos
+
+        if(trim($request->password) == ''){
+
+            $input = $request->except('password');
+
+        } else{
+
+
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+
+        }
+
+
+
+        if($file = $request->file('photo_id')) {
+
+
+            $name = time() . $file->getClientOriginalName();
+
+
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+
+
+            $input['photo_id'] = $photo->id;
+
+
+        }
+
+
+        User::create($input);
+        
+        return redirect('/admin/users');
+        
+    }
+```
