@@ -1116,3 +1116,26 @@ protected $redirectTo = '/admin/users';
  {{Auth::user()->name}}
 ```
 
+## Borrar usuario
+
+Se agrega un nuevo formulario para el request al momento del borrado
+
+```php
+ {!! Form::open(['method'=>'DELETE', 'action'=> ['AdminUsersController@destroy', $user->id]]) !!}
+       <div class="form-group">
+       {!! Form::submit('Delete user', ['class'=>'btn btn-danger col-sm-6']) !!}
+       </div>
+{!! Form::close() !!}
+```
+
+En AdminUsersController se procede a realizar el borrado mediante Eloquent
+
+```php
+ public function destroy($id)
+    {
+        //
+        User::findOrFail($id)->delete();
+
+        return redirect()->route('users.index');
+    }
+```
