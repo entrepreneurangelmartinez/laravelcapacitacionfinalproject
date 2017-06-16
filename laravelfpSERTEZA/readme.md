@@ -1028,3 +1028,91 @@ Modifcamos el controlador para que evitar un problema de integridad con la contr
 
         $user->update($input);
 ```
+
+## Seguridad
+
+Es muy importante determinar el acceso del contenido, para esto Laravel nos brinda la generación de middlewares.
+
+Generamos un middleware para nuestro usuario Admin
+
+```php
+php artisan make:middleware Admin
+```
+
+Agregamos al kernel "Kernel.php" nuestro middleware
+
+```php
+protected $routeMiddleware = [
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'admin' =>\App\Http\Middleware\Admin::class,
+    ];
+```
+
+Generamos una agrupación de rutas que se veran afectadas por el middleware
+
+```php
+Route::group(['middleware'=> 'admin'], function()
+{
+    Route::resource('admin/users', 'AdminUsersController');
+});
+```
+
+Generamos un método para la verificación de acceso del Administrador en el modelo User.php
+
+```php
+public function isAdmin(){
+        if($this->role->name == "Administrator")
+        {
+            return true;
+        }
+        return false;
+    }
+```
+
+Modificamos el handle dentro del middleware Admin.php para usar la autenticación
+
+```php
+namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
+use Closure;
+
+class Admin
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if(Auth::check())
+        {
+            if(Auth::user()->isAdmin())
+            {
+                return $next($request);
+            }
+        }
+        
+        //Si el usuario no esta logueado redirigimos a un error 404
+
+        return redirect("/");
+    }
+}
+```
+
+Por último modificamos el LoginController para redireccionar a nuestra área administrativa y agregamos en nuestro template el nombre de usuario.
+
+```php
+protected $redirectTo = '/admin/users';
+
+
+ {{Auth::user()->name}}
+```
+
