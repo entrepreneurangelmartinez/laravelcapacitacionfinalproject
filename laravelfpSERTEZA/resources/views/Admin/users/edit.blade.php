@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class='row'>
 <div class="col-sm-3">
 
 <img src="{{$user->photo ? $user->photo->file : 'http://newsinamerica.com/pdcc/wp-content/themes/imagpress-themes/lib/img/400x400.gif'}}" alt="" class="img-responsive img-rounded">
@@ -57,7 +58,9 @@
 
        {!! Form::close() !!}
        </div>
+       </div>
+       <div class="row">
     @include('includes.form_error')
-  
+  </div>
 
  @stop

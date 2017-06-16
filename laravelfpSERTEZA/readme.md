@@ -900,3 +900,16 @@ Se procede a modificar el valor por defecto a nulo del estatus
 
  @stop
 ```
+
+## Visualizando errores en el formulario de edición
+
+Modificamos el request de update
+
+```php
+public function update(UsersRequest $request, $id)
+    {
+        //
+        return "Hola";
+    }
+```
+
