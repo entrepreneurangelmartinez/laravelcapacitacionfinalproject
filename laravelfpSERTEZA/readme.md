@@ -943,3 +943,88 @@ public function update(UsersRequest $request, $id)
     }
 ```
 
+## Modificando el Request para evitar la actualización en todo momento del password mientras editamos
+
+Se genera un nuevo request UsersEditRequest
+
+```php
+php artisan make:request UsersEditRequest
+
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UsersEditRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        //En este Request no incluimos como obligatorio el password
+         return [
+            //
+            'name'=>'required',
+            'email'=>'required',
+            'role_id'=>'required',
+            'is_active'=>'required'
+        ];
+    }
+}
+```
+
+Modifcamos el controlador para que evitar un problema de integridad con la contraseña
+
+```php
+  $user = User::findOrFail($id);
+
+
+        if(trim($request->password) == ''){
+
+            $input = $request->except('password');
+
+        } else{
+
+
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+
+        }
+
+
+
+
+        if($file = $request->file('photo_id')){
+
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+
+
+            $input['photo_id'] = $photo->id;
+
+
+        }
+
+
+
+        $user->update($input);
+```

@@ -42,8 +42,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
-        </div>
+            <a class="navbar-brand" href="/">SERTEZA ERP</a>
+        </div>  
         <!-- /.navbar-header -->
 
 
