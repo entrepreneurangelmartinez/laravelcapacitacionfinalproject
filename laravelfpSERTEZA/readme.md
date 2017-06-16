@@ -913,3 +913,33 @@ public function update(UsersRequest $request, $id)
     }
 ```
 
+## Actualizando datos
+
+```php
+//Se valida y crea una nueva foto asignable
+
+public function update(UsersRequest $request, $id)
+    {
+        //Actualizando datos
+
+        $user =User::findOrFail($id);
+
+        $input = $request->all();
+        
+        if($file=$request->file('photo_id'))
+        {
+            $name=time() . $file ->getClientOriginalName();
+
+            $file->move('images',$name); 
+
+            $photo=Photo::create(['file'=>$name]);   
+
+            $input['photo_id']=$photo->id;
+        }
+
+        $user->update($input);
+        
+        return redirect()->route('users.index');
+    }
+```
+
