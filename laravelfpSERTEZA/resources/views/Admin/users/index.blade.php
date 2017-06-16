@@ -26,7 +26,7 @@
 
         {{-- Verificar qye exista una imagen por cada usuario --}}
         {{-- Implementando un accesor --}}
-        <td><img height="50px" width="50px" src='{{$user->photo ? $user->photo->file : "no user photo"}}'/></td>
+        <td><img height="50px" width="50px" src='{{$user->photo ? $user->photo->file : "http://newsinamerica.com/pdcc/wp-content/themes/imagpress-themes/lib/img/400x400.gif"}}'/></td>
         {{-- <td>{{$user->name}}</td> --}}
 
         <td><a href="{{route('users.edit',$user->id)}}">{{$user->name}}</a></td>

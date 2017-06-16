@@ -2,6 +2,12 @@
 
 @section('content')
 
+<div class="col-sm-3">
+
+<img src="{{$user->photo ? $user->photo->file : 'http://newsinamerica.com/pdcc/wp-content/themes/imagpress-themes/lib/img/400x400.gif'}}" alt="" class="img-responsive img-rounded">
+</div>
+
+<div class="col-sm-9">
 
     <h1>Edit User</h1>
 {{-- //Realizamos un model binding de este forumulario --}}
@@ -27,7 +33,7 @@
 
         <div class="form-group">
             {!! Form::label('is_active', 'Status:') !!}
-            {!! Form::select('is_active', array(1 => 'Active', 0=> 'Not Active'), 0 , ['class'=>'form-control'])!!}
+            {!! Form::select('is_active', array(1 => 'Active', 0=> 'Not Active'), null , ['class'=>'form-control'])!!}
          </div>
 
 
@@ -50,8 +56,7 @@
 
 
        {!! Form::close() !!}
-
-
+       </div>
     @include('includes.form_error')
   
 
