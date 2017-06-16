@@ -106,6 +106,13 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
+        $user= User::findOrFail($id);
+
+        //Anexando los roles a la vista
+
+        $roles = Role::pluck('name','id')->all();
+
+        return view('admin.users.edit',compact('user','roles'));
     }
 
     /**
