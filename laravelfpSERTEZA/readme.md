@@ -7,6 +7,20 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+
+## Créditos
+
+<center>
+
+Capacitación y elaboración del proyecto final por el Ingeniero en Sistemas Computacionales Angel Jesús Martínez Frías
+
+<a href="https://www.facebook.com/ISCNGEL"><img src="http://www.riversidefilm.org/wp-content/uploads/2017/04/RIFF_Social_FB.png" width="50px" height="50px" alt="License"></a>
+</center>
+
+## Empresa a la que se le brindo los servicios de capacitación de personal
+
+SERTEZA
+
 ## Acerca del proyecto final
 
 Este proyecto final contiene todo lo visto durante la capacitación de Laravel nivel intermedio-preavanzado
@@ -697,3 +711,30 @@ public function store(UsersRequest $request)
         
     }
 ```
+
+## Mostrando las fotos por cada usuario usando un accesor
+
+Editamos la vista users/index.blade.php, agregando el parametro de foto en la tabla
+
+```php
+<th>Photo</th>
+
+{{-- Verificar qye exista una imagen por cada usuario --}}
+{{-- Implementando un accesor --}}
+ <td><img height="50px" width="50px" src='/images/{{$user->photo ? $user->photo->file : "no user photo"}}'/></td>
+```
+Se procede a implementar el accsesor dentro del modelo Photo
+
+```php
+protected $uploads='/images/';
+
+    public function getFileAttribute($photo)
+    {
+        return $this->uploads . $photo;
+    }
+
+
+    {{-- Implementando un accesor --}}
+        <td><img height="50px" width="50px" src='{{$user->photo ? $user->photo->file : "no user photo"}}'/></td>
+```
+
