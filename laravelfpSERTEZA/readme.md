@@ -820,3 +820,9 @@ Generamos nuestro formulario, tomamos como base el de creación de un usuario
 
  @stop
 ```
+
+## Convirtiendo en un model el envio de datos del formulario Edit
+
+```php
+{!! Form::model($user,['method'=>'PATCH', 'action'=> ['AdminUsersController@update',$user->id],'files'=>true]) !!}
+```

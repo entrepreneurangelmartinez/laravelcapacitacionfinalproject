@@ -1,15 +1,12 @@
 @extends('layouts.admin')
 
-
-
-
 @section('content')
 
 
     <h1>Edit User</h1>
 {{-- //Realizamos un model binding de este forumulario --}}
 
-     {!! Form::open(['method'=>'PATCH', 'action'=> ['AdminUsersController@update',$user->id],'files'=>true]) !!}
+     {!! Form::model($user,['method'=>'PATCH', 'action'=> ['AdminUsersController@update',$user->id],'files'=>true]) !!}
 {{-- {!! Form::model($user['method'=>'POST', 'action'=> 'AdminUsersController@store','files'=>true]) !!} --}}
 
       <div class="form-group">
