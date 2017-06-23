@@ -1188,3 +1188,53 @@ public function destroy($id)
         return redirect()->route('users.index');
     }
 ```
+
+## **Posts**
+
+## Definiendo rutas
+
+Anexamos al grupo de rutas de administrador a los posts
+
+```php
+Route::group(['middleware'=> 'admin'], function()
+{
+    Route::resource('admin/users', 'AdminUsersController');
+
+    Route::resource('admin/posts','AdminPostsController');
+});
+```
+
+Generamos un controlador mediante artisan y andamiaje
+
+```php
+php artisan make:controller --resource AdminPostsController
+```
+
+Reemplazamos el hard code por rutas dinámicas en el layout admin.blade.php
+
+```php
+ <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{route('posts.index')}}">All Posts</a>
+                            </li>
+
+                            <li>
+                                <a href="/posts/create">Create Post</a>
+                            </li>
+
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+```
+
+En los controladores solo hacemos el enrutamiento a la vista
+
+```php
+ public function index()
+    {
+        //
+        return view('admin.posts.index');
+    }
+```
