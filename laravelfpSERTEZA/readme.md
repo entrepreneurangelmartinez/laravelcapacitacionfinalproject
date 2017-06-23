@@ -1139,3 +1139,27 @@ En AdminUsersController se procede a realizar el borrado mediante Eloquent
         return redirect()->route('users.index');
     }
 ```
+
+## Ejecutando mensajes de retroalimentación (Flash messages)
+
+Se anexa un mensaje con el metodo flash de la fachada Session
+
+```php
+public function destroy($id)
+    {
+        //
+        User::findOrFail($id)->delete();
+
+        Session::flash('deleted_user', 'The user has been deleted');
+
+        return redirect()->route('users.index');
+    }
+```
+
+Después agregamos en la vista de redireccionamiento la condición que dispara el valor de la sesión
+
+```php
+@if(Session::has('deleted_user'))
+<p class="alert alert-danger">{{session('deleted_user')}}</p>
+@endif
+```
