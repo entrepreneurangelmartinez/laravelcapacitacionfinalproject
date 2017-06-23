@@ -1352,3 +1352,28 @@ Modificamos la vist /posts/index.blade.php
   </table>
 @stop
 ```
+
+## Estableciendo las relaciones que tienen los Posts
+
+Primero establecemos la relacion uno  a muchos Para un **usuario**
+
+```php
+   public function posts(){
+        return $this->hasMany('App\Post');
+    }
+```
+
+Ahora se establece la relación entre los **Post** y el usuario
+
+```php
+public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+```
+
+Modificamos la vista index para obtener el nombre del usuario
+
+```php
+<td>{{$post->user->name}}</td>
+```
