@@ -1266,3 +1266,89 @@ aplicamos la migración
 ```php
 php artisan migrate
 ```
+## Mostrando Posts
+
+Implementamos Tinker para generar y hacer pruebas para crear nuestros primeros posts.
+
+```php
+$post=App\Post::create(['title'=>'my first post','body'=>'I love Laravel and my Consultant Angel Martínez n_n']);
+```
+
+Nos saldra el siguiente mensaje
+
+```php
+php artisan tinker
+Psy Shell v0.8.6 (PHP 5.6.30 ÔÇö cli) by Justin Hileman
+>>> $post=App\Post::create(['title'=>'my first post','body'=>'I love Laravel and my Consultant Ang
+el Martínez n_n']);
+Illuminate\Database\Eloquent\MassAssignmentException with message 'title'
+>>>
+```
+
+Esto quiere decir que nuestros atributos aún no estan con permiso para ser rellenados.
+
+Agregamos los valores necesarios a nuestro modelo
+
+```php
+protected $fillable = [
+        'user_id',
+        'category_id',
+        'photo_id',
+        'title',
+        'body'
+    ];
+```
+
+```php
+$post=App\Post::create(['title'=>'my first post','body'=>'I love Laravel and my consultant Angel Martinez','user_id'=>'1','category_id'=>'1','photo_id'=>'1'])
+```
+
+Modificamos el index de AdminPostsController
+
+```php
+public function index()
+    {
+        //
+         $posts=Post::all();
+        return view('admin.posts.index',compact('posts'));
+    }
+```
+
+Modificamos la vist /posts/index.blade.php
+
+```php
+@extends('layouts.admin')
+@section('content')
+<h1>Posts</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Category</th>
+        <th>Photo</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Created</th>
+        <th>Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+    @if($posts)
+    @foreach($posts as $post)
+      <tr>
+        <td>{{$post->id}}</td>
+        <td>{{$post->user_id}}</td>
+        <td>{{$post->category_id}}</td>
+        <td>{{$post->photo_id}}</td>
+        <td>{{$post->title}}</td>
+        <td>{{$post->body}}</td>
+        <td>{{$post->created_at}}</td>
+        <td>{{$post->updated_at}}</td>
+      </tr>
+       @endforeach
+       @endif
+    </tbody>
+  </table>
+@stop
+```
