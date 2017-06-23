@@ -1163,3 +1163,28 @@ Después agregamos en la vista de redireccionamiento la condición que dispara e
 <p class="alert alert-danger">{{session('deleted_user')}}</p>
 @endif
 ```
+
+## Borrando las imagenes
+
+Hasta el momento, solo se borra los datos de los usuarios a nivel de base de datos, pero en la carpeta persiste la existencia de la imagen que se guardo.
+
+Para realizar el borrado de imagen se recomienda ampliamente el uso del método unlink, que es propio de php.
+
+Refactorizando el código:
+
+```php
+public function destroy($id)
+    {
+        //
+
+        $user=User::findOrFail($id);
+
+        unlink(public_path() . $user->photo->file);
+        
+        $user->delete();
+
+        Session::flash('deleted_user', 'The user has been deleted');
+
+        return redirect()->route('users.index');
+    }
+```
