@@ -1238,3 +1238,31 @@ En los controladores solo hacemos el enrutamiento a la vista
         return view('admin.posts.index');
     }
 ```
+## Generando Modelo y migración de la entidad Post
+
+```php
+php artisan make:model Post -m
+```
+
+Modificamos la migración a los atributos que requerimos
+
+```php
+  public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('category_id')->unsigned()->index();
+            $table->integer('photo_id')->unsigned()->index();
+            $table->string('title');
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+```
+
+aplicamos la migración
+
+```php
+php artisan migrate
+```
