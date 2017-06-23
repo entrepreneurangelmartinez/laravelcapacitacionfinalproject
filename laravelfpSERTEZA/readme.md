@@ -1370,6 +1370,15 @@ public function user()
     {
         return $this->belongsTo('App\User');
     }
+
+    public function photo()
+    {
+        return $this->belongsTo('App\Photo');
+    }
+
+    public function category(){
+        return $this->belongsTo('App\Category');
+    }
 ```
 
 Modificamos la vista index para obtener el nombre del usuario
